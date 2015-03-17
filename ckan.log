@@ -1,0 +1,14 @@
+2015-03-12 13:43:16,473 WARNI [root] /////////////////////////////////////////
+2015-03-12 13:43:16,474 WARNI [root] None
+2015-03-12 13:43:16,595 INFO  [saml2] Logging started
+2015-03-12 13:44:15,433 INFO  [ckan.lib.base]  /sparql render time 1.459 seconds
+2015-03-12 13:44:16,397 INFO  [ckan.lib.base]  /api/i18n/sk render time 0.002 seconds
+2015-03-12 13:44:27,417 INFO  [ckan.lib.base]  /query render time 1.106 seconds
+2015-03-12 13:45:55,166 WARNI [root] /////////////////////////////////////////
+2015-03-12 13:45:55,167 WARNI [root] None
+2015-03-12 13:45:55,322 INFO  [saml2] Logging started
+2015-03-12 13:46:17,204 INFO  [ckan.lib.base]  /admin/sla render time 1.698 seconds
+2015-03-12 13:46:18,120 INFO  [ckan.lib.base]  /api/i18n/sk render time 0.004 seconds
+2015-03-12 13:51:13,259 WARNI [root] /////////////////////////////////////////
+2015-03-12 13:51:13,259 WARNI [root] None
+2015-03-12 13:51:13,387 INFO  [saml2] Logging started

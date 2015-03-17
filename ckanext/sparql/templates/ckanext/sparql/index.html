@@ -35,7 +35,12 @@
 	</header>
 	
     <div id="sparql_point_block">
-        
+       <noscript>
+    <div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  {{_('please turn on javascript to access website')}}
+</div></noscript> 
         <h1>SPARQL Editor</h1>
         
         <div class="control-group control-full" 
@@ -86,7 +91,7 @@ LIMIT 20
             </div>
             
             <i class="icon-info-sign"></i>&nbsp;<small><abbr title="Link Query"><a target="_blank" id="go_to_link_query_query">{{ _('Permanent Link for this Query (To save your Query)') }}<i class="icon-link"></i></a></abbr></small>
-            
+
             
         </div>
         <br>
@@ -97,10 +102,228 @@ LIMIT 20
 			<br>
 		</div>
         
-        <div id="sparql_results"></div>
+        <div style="margin-left:1em;"> <div id="sparql_results"></div></div>
     
     </div>
+<style>
+#content > div.row.wrapper.no-nav > div.data-explorer-here{
+  margin-left: 1.5em;
+}
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.navigation > div > button.btn.btn-default{
+  margin: -5px;
+}
+
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.page-range, 
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.next.action-pagination-update > a,
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.prev.action-pagination-update > a{
+  padding-bottom: 0px;
+}
+#q{
+  width: 100px;
+}
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.query-editor-here > div > form > button{
+  display: none;
+}
+</style>
+<!--
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+create_data()
+-->
+
+<script type="text/javascript">
+function create_data(){
+  var url = $("#field-link-sparql-server-query_json").val();
+
+  var json = $.getJSON( url, function() {
+        console.log( "success" );
+      })
+        .done(function() {
+          console.log( "second success" );
+        })
+      .fail(function() {
+        console.log( "error" );
+      })
+      .always(function() {
+        console.log( "complete" );
+      }
+    );
+   
+  // Perform other work here ...
+   
+  // Set another completion function for the request above
+  var x;
+  json.complete(function() {
+    console.log( "second complete" );
+    console.log(json.responseJSON);
+    x = json.responseJSON;
+    console.log(x);
+  });
+
+
+  json.complete().complete(function(){
+  function toObject(arr) {
+    var rv = {};
+    for (var i = 0; i < arr.length; ++i)
+      rv[i] = arr[i];
+    return rv;
+  }
+
+  var vars = [];
+  for(var i = 0; i < x.head.vars.length; i++){
+    vars.push({id:x.head.vars[i], type: "text"});
+  }
+  var records = [];
+
+  for(var i = 0;  i < x.results.bindings.length; i++){
+    var dict = {};
+    for(var j = 0; j < vars.length; j++){
+      
+      dict[vars[j]["id"]]= x.results.bindings[i][vars[j]["id"]]["value"];
+      console.log(vars[j]["id"]);
+      console.log(x.results.bindings[i][vars[j]["id"]]["value"]);
+    }
+    //dict = toObject(dict);
+    records.push(dict);
+  }
+
+  //records = toObject(records);
+  //vars = toObject(vars)
+  data_from_json = {records:records, fields:vars};
+  if($(".recline-data-explorer").length > 0){
+    $(".recline-data-explorer")[0].remove();
+  }
+  var dataset = createDemoDataset();
+  window.multiview = createMultiView(dataset);
+
+  var url = $("#field-link-sparql-server-query_json").val();
+  console.log(url)
+  var json = $.getJSON(url);
+  console.log(json)
+  json = json.responseJSON;
+  console.log(json)}
+  );
+}
+
+</script>
+
+<style type="text/css">
+.recline-slickgrid {
+  height: 300px;
+}
+
+.recline-timeline .vmm-timeline {
+  height: 550px;
+}
+
+.changelog {
+  display: none;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.data-view-sidebar > div.recline-row-add > h1 > a{
+  font-size: 1em;
+}
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.query-editor-here > div > form > div > input{
+  height: 
+}
+</style>
+
+<div class="data-explorer-here"></div>
+
+<div style="clear: both;"></div>
+
+
   
+      <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/leaflet/0.7.3/leaflet.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="../vendor/leaflet/0.7.3/leaflet.ie.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/leaflet.markercluster/MarkerCluster.css">
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/leaflet.markercluster/MarkerCluster.Default.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="../vendor/leaflet.markercluster/MarkerCluster.Default.ie.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.grid.css">
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/timeline/css/timeline.css">
+
+  <!-- Recline CSS components -->
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/grid.css">
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/slickgrid.css">
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/flot.css">
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/map.css">
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/multiview.css">
+  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/timeline.css">
+
+
+ <script src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery-1.7.min.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/underscore/1.4.4/underscore.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/backbone/1.0.0/backbone.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/mustache/0.5.0-dev/mustache.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/bootstrap/2.3.2/bootstrap.js"></script>
+  <!--[if lte IE 8]>
+  <script language="javascript" type="text/javascript" src="../vendor/flot/excanvas.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/flot/jquery.flot.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/flot/jquery.flot.time.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/leaflet/0.7.3/leaflet.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/leaflet.markercluster/leaflet.markercluster.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery-ui-1.8.16.custom.min.js"></script>
+  <script src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery.event.drag-2.2.js"></script>
+  <script src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery.event.drop-2.2.js"></script>
+
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery.event.drag-2.0.min.js"></script>
+  <!--script type="text/javascript" src="../vendor/slickgrid/2.0.1/slick.grid.min.js"></script-->
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.core.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.formatters.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.editors.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.grid.js"></script>
+
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/plugins/slick.rowselectionmodel.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/plugins/slick.rowmovemanager.js"></script>
+
+
+  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/moment/2.0.0/moment.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+  <!--script type="text/javascript" src="http://okfnlabs.org/recline/vendor/timeline/js/timeline.js"></script-->
+  <!--[if lte IE 7]>
+  <script language="javascript" type="text/javascript" src="../vendor/json/json2.js"></script>
+  <![endif]-->
+
+  <!--
+    ## Just use the all in one library version rather than individual files
+
+  <script type="text/javascript" src="../dist/recline.js"></script>
+
+  -->
+
+  <!-- model and backends -->
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/ecma-fixes.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/model.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/backend.memory.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/backend.dataproxy.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline.backend.gdocs/backend.gdocs.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/csv.js/csv.js"></script>
+
+  <!-- views -->
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.grid.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.slickgrid.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.flot.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.graph.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.map.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.timeline.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.pager.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.queryeditor.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.filtereditor.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.valuefilter.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.facetviewer.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.fields.js"></script>
+  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.multiview.js"></script>
+<script type="text/javascript" src="app.js"></script>
+
+<!--
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+
 {% endblock %}
 
 {% block secondary %}{% endblock %}

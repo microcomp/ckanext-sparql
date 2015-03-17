@@ -55,5 +55,6 @@
             {% endfor %}
             </tbody>
             </table>
+            <a href="#showdata" onclick="create_data()" id="showdata">show data</a>
         </div>
 {% elif direct_link == '1' %}{% set results_python_data_structure = h.sparqlQuery('') %}{{ results_python_data_structure | safe }}{% else %}{{ direct_link }}{% endif %}{% endblock %}
