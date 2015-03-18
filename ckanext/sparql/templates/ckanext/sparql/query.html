@@ -1,7 +1,7 @@
 {% block content %}{% set direct_link = h.check_direct_link() %}{% if direct_link == '0' %}
         <div>
             {% set results = h.sparqlQuery('') %}
-            <table class="table table-bordered sparql_table">
+            <!--table class="table table-bordered sparql_table">
             <caption>SPARQL Results</caption>
             <thead>
               <tr>
@@ -54,7 +54,8 @@
             {% set counter = (counter + 1) -%}  
             {% endfor %}
             </tbody>
-            </table>
-            <a href="#showdata" onclick="create_data()" id="showdata">show data</a>
+            </table-->
+            <button onclick="create_data()" id="showdata" class="mybutton" style="margin-left auto; margin-right: auto;">{{_("Show data")}}</button>
+            <button onclick="create_data()" id="updatedata" class="mybutton" style="margin-left auto; margin-right: auto;display: none;"><i class="fa fa-refresh"></i> {{_("Update data")}}</button>
         </div>
 {% elif direct_link == '1' %}{% set results_python_data_structure = h.sparqlQuery('') %}{{ results_python_data_structure | safe }}{% else %}{{ direct_link }}{% endif %}{% endblock %}

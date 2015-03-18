@@ -157,6 +157,7 @@ function create_data(){
     console.log(json.responseJSON);
     x = json.responseJSON;
     console.log(x);
+    
   });
 
 
@@ -170,7 +171,8 @@ function create_data(){
 
   var vars = [];
   for(var i = 0; i < x.head.vars.length; i++){
-    vars.push({id:x.head.vars[i], type: "text"});
+    vars.push({id:String(x.head.vars[i]), type: "text"});
+    console.log(String(x.head.vars[i]));
   }
   var records = [];
 
@@ -178,20 +180,26 @@ function create_data(){
     var dict = {};
     for(var j = 0; j < vars.length; j++){
       
-      dict[vars[j]["id"]]= x.results.bindings[i][vars[j]["id"]]["value"];
+      dict[String("_"+vars[j]["id"])]= x.results.bindings[i][vars[j]["id"]]["value"];
       console.log(vars[j]["id"]);
-      console.log(x.results.bindings[i][vars[j]["id"]]["value"]);
+      console.log(String(vars[j]["id"]));
+      //console.log(x.results.bindings[i][vars[j]["id"]]["value"]);
     }
     //dict = toObject(dict);
     records.push(dict);
   }
-
+  for(var i = 0; i <vars.length; i++){
+      vars[i].id = "_"+vars[i].id
+  }
   //records = toObject(records);
   //vars = toObject(vars)
   data_from_json = {records:records, fields:vars};
+  console.log(vars)
+  console.log(records)
   if($(".recline-data-explorer").length > 0){
     $(".recline-data-explorer")[0].remove();
   }
+  $("#field-link-sparql-server-query_json").on('change',function(){$(".recline-data-explorer")[0].remove;})
   var dataset = createDemoDataset();
   window.multiview = createMultiView(dataset);
 
@@ -201,12 +209,21 @@ function create_data(){
   console.log(json)
   json = json.responseJSON;
   console.log(json)}
-  );
+).complete(function(){
+    var rem = document.getElementsByClassName('slick-column-name')
+    for(var i = 0; i < rem.length; i++){
+      rem[i].innerHTML = rem[i].innerHTML.substring(1, rem[i].innerHTML.length)
+    $("#showdata").hide();
+    $("#updatedata").show();
+}
+});
+
 }
 
 </script>
 
 <style type="text/css">
+
 .recline-slickgrid {
   height: 300px;
 }
@@ -226,6 +243,11 @@ function create_data(){
 #content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.query-editor-here > div > form > div > input{
   height: 
 }
+.slick-column-name::first-letter {
+  color: rgba(0, 0, 0, 0);
+  display: none;
+}
+
 </style>
 
 <div class="data-explorer-here"></div>
@@ -347,5 +369,6 @@ function create_data(){
 	});
   
   </script>
+
   
 {% endblock %}
