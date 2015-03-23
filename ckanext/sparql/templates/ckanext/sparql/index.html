@@ -135,28 +135,18 @@ function create_data(){
   var url = $("#field-link-sparql-server-query_json").val();
 
   var json = $.getJSON( url, function() {
-        //console.log( "success" );
       })
         .done(function() {
-          //console.log( "second success" );
         })
       .fail(function() {
-        //console.log( "error" );
       })
       .always(function() {
-        //console.log( "complete" );
       }
     );
    
-  // Perform other work here ...
-   
-  // Set another completion function for the request above
   var x;
   json.complete(function() {
-    //console.log( "second complete" );
-    //console.log(json.responseJSON);
     x = json.responseJSON;
-    //console.log(x);
     
   });
 
@@ -172,7 +162,6 @@ function create_data(){
   var vars = [];
   for(var i = 0; i < x.head.vars.length; i++){
     vars.push({id:String(x.head.vars[i]), type: "text"});
-    //console.log(String(x.head.vars[i]));
   }
   var records = [];
 
@@ -181,21 +170,13 @@ function create_data(){
     for(var j = 0; j < vars.length; j++){
       
       dict[String("_"+vars[j]["id"])]= x.results.bindings[i][vars[j]["id"]]["value"];
-      //console.log(vars[j]["id"]);
-      //console.log(String(vars[j]["id"]));
-      //console.log(x.results.bindings[i][vars[j]["id"]]["value"]);
     }
-    //dict = toObject(dict);
     records.push(dict);
   }
   for(var i = 0; i <vars.length; i++){
       vars[i].id = "_"+vars[i].id
   }
-  //records = toObject(records);
-  //vars = toObject(vars)
   data_from_json = {records:records, fields:vars};
-  //console.log(vars)
-  //console.log(records)
   if($(".recline-data-explorer").length > 0){
     $(".recline-data-explorer")[0].remove();
   }
@@ -204,11 +185,9 @@ function create_data(){
   window.multiview = createMultiView(dataset);
 
   var url = $("#field-link-sparql-server-query_json").val();
-  //console.log(url)
   var json = $.getJSON(url);
-  //console.log(json)
   json = json.responseJSON;
-  //console.log(json)}
+}
 ).complete(function(){
     var rem = document.getElementsByClassName('slick-column-name')
     for(var i = 0; i < rem.length; i++){
@@ -298,8 +277,8 @@ function create_data(){
   <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.core.js"></script>
   <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.formatters.js"></script>
   <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.editors.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.grid.js"></script>
-
+  <!--script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.grid.js"></script-->
+<script type="text/javascript" src="/src/slick.grid.js"></script>
   <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/plugins/slick.rowselectionmodel.js"></script>
   <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/plugins/slick.rowmovemanager.js"></script>
 
@@ -340,6 +319,8 @@ function create_data(){
   <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.facetviewer.js"></script>
   <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.fields.js"></script>
   <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.multiview.js"></script>
+
+            
 <script type="text/javascript" src="app.js"></script>
 
 <!--
