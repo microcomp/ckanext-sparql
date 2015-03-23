@@ -67,7 +67,10 @@ function call_sparql_point_server() {
         	return;
 	    }
 		});
+if($('.recline-data-explorer').length != 0){
+	$('.recline-data-explorer')[0].remove();}
 
+}
 
 }
 
