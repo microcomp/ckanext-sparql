@@ -135,16 +135,16 @@ function create_data(){
   var url = $("#field-link-sparql-server-query_json").val();
 
   var json = $.getJSON( url, function() {
-        console.log( "success" );
+        //console.log( "success" );
       })
         .done(function() {
-          console.log( "second success" );
+          //console.log( "second success" );
         })
       .fail(function() {
-        console.log( "error" );
+        //console.log( "error" );
       })
       .always(function() {
-        console.log( "complete" );
+        //console.log( "complete" );
       }
     );
    
@@ -153,10 +153,10 @@ function create_data(){
   // Set another completion function for the request above
   var x;
   json.complete(function() {
-    console.log( "second complete" );
-    console.log(json.responseJSON);
+    //console.log( "second complete" );
+    //console.log(json.responseJSON);
     x = json.responseJSON;
-    console.log(x);
+    //console.log(x);
     
   });
 
@@ -172,7 +172,7 @@ function create_data(){
   var vars = [];
   for(var i = 0; i < x.head.vars.length; i++){
     vars.push({id:String(x.head.vars[i]), type: "text"});
-    console.log(String(x.head.vars[i]));
+    //console.log(String(x.head.vars[i]));
   }
   var records = [];
 
@@ -181,8 +181,8 @@ function create_data(){
     for(var j = 0; j < vars.length; j++){
       
       dict[String("_"+vars[j]["id"])]= x.results.bindings[i][vars[j]["id"]]["value"];
-      console.log(vars[j]["id"]);
-      console.log(String(vars[j]["id"]));
+      //console.log(vars[j]["id"]);
+      //console.log(String(vars[j]["id"]));
       //console.log(x.results.bindings[i][vars[j]["id"]]["value"]);
     }
     //dict = toObject(dict);
@@ -194,8 +194,8 @@ function create_data(){
   //records = toObject(records);
   //vars = toObject(vars)
   data_from_json = {records:records, fields:vars};
-  console.log(vars)
-  console.log(records)
+  //console.log(vars)
+  //console.log(records)
   if($(".recline-data-explorer").length > 0){
     $(".recline-data-explorer")[0].remove();
   }
@@ -204,11 +204,11 @@ function create_data(){
   window.multiview = createMultiView(dataset);
 
   var url = $("#field-link-sparql-server-query_json").val();
-  console.log(url)
+  //console.log(url)
   var json = $.getJSON(url);
-  console.log(json)
+  //console.log(json)
   json = json.responseJSON;
-  console.log(json)}
+  //console.log(json)}
 ).complete(function(){
     var rem = document.getElementsByClassName('slick-column-name')
     for(var i = 0; i < rem.length; i++){
