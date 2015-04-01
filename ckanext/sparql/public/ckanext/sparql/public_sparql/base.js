@@ -72,8 +72,6 @@ if($('.recline-data-explorer').length != 0){
 
 }
 
-}
-
 function change_direct_link_value(url) {
 	var new_url = url.substring(0, url.length-1);
 	return new_url + '1';
