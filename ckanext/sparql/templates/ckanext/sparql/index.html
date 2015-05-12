@@ -12,12 +12,14 @@
 
 <link rel="stylesheet" href="{% url_for_static '/public_sparql/base_styles.css' %}">
 <script src="{% url_for_static '/public_sparql/jquery-1.9.1.min.js' %}"></script>
-
+  <script src="/jquery-ui.min.js"></script>
+  <script src="/jquery-ui.js"></script>
 <!-- Code Mirror CSS/JS -->
 
 <link rel="stylesheet" href="{% url_for_static '/public_sparql/codemirror/lib/codemirror.css' %}">
 <script src="{% url_for_static '/public_sparql/codemirror/lib/codemirror.js' %}"></script>
 <script src="{% url_for_static '/public_sparql/codemirror/lib/mode.sparql.js' %}"></script>
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 <link rel="stylesheet" href="{% url_for_static '/public_sparql/codemirror/themes/default.css' %}">
     
 {% endblock %}
@@ -149,9 +151,10 @@ function genQuery(){
         
         editor.setValue(query);
       }
+
 </script>
 <div id="querybuilderdiv" style="display:none;">
- <table border="1" width="100%" >
+ <table border="1" width="100%" id="qTable">
   <tr> 
     <td>Subject</td>
     <td>Predicates</td>
@@ -162,18 +165,18 @@ function genQuery(){
     <td width="33%"> 
       <div class="ui-widget">
        
-        <input id="predicates">
+        <input id="predicates" style="width:98.8%; margin-top: 1.43em;">
       </div>
       <button onclick="addPredicate()"> Add subject</button>
     </td>
     <td width="33%">
       <div class="ui-widget" id="2nd" style="display:none">
         
-        <input id="subject" onChange="showObject">
+        <input id="subject" onChange="showObject" style="width:98.8%">
       </div>
     </td>
     <td width="33%">
-      <div class="ui-widget" id="3rd" style="display:none">
+      <div class="ui-widget" id="3rd" style="display:none" style="width:98.8%">
        
         <input id="object" onchange="showBtn" >
       </div>
@@ -286,6 +289,7 @@ function create_data(){
   });
 
 
+
   json.complete().complete(function(){
   function toObject(arr) {
     var rv = {};
@@ -370,59 +374,61 @@ function create_data(){
 
 
   
-      <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/leaflet/0.7.3/leaflet.css">
+     
+      <link rel="stylesheet" href="/recline/leaflet.css">
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="../vendor/leaflet/0.7.3/leaflet.ie.css" />
+  <link rel="stylesheet" href="../leaflet/0.7.3/leaflet.ie.css" />
   <![endif]-->
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/leaflet.markercluster/MarkerCluster.css">
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/leaflet.markercluster/MarkerCluster.Default.css">
+  <link rel="stylesheet" href="/recline/MarkerCluster.css">
+  <link rel="stylesheet" href="/recline/MarkerCluster.Default.css">
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="../vendor/leaflet.markercluster/MarkerCluster.Default.ie.css" />
+  <link rel="stylesheet" href="../leaflet.markercluster/MarkerCluster.Default.ie.css" />
   <![endif]-->
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.grid.css">
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/vendor/timeline/css/timeline.css">
+  <link rel="stylesheet" href="/recline/slick.grid.css">
+  <link rel="stylesheet" href="/recline/timeline.css">
 
   <!-- Recline CSS components -->
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/grid.css">
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/slickgrid.css">
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/flot.css">
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/map.css">
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/multiview.css">
-  <link rel="stylesheet" href="http://okfnlabs.org/recline/css/timeline.css">
+  <link rel="stylesheet" href="/recline/grid.css">
+  <link rel="stylesheet" href="/recline/slickgrid.css">
+  <link rel="stylesheet" href="/recline/flot.css">
+  <link rel="stylesheet" href="/recline/map.css">
+  <link rel="stylesheet" href="/recline/multiview.css">
+  <link rel="stylesheet" href="/recline/timeline.css">
 
 
- <script src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery-1.7.min.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/underscore/1.4.4/underscore.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/backbone/1.0.0/backbone.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/mustache/0.5.0-dev/mustache.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/bootstrap/2.3.2/bootstrap.js"></script>
+ <!--script src="/recline/slickgrid/2.0.1/jquery-1.7.min.js"></script!-->
+  <script type="text/javascript" src="/recline/underscore.js"></script>
+  <script type="text/javascript" src="/recline/backbone.js"></script>
+  <script type="text/javascript" src="/recline/mustache.js"></script>
+  <script type="text/javascript" src="/recline/bootstrap.js"></script>
   <!--[if lte IE 8]>
-  <script language="javascript" type="text/javascript" src="../vendor/flot/excanvas.min.js"></script>
+  <script language="javascript" type="text/javascript" src="../flot/excanvas.min.js"></script>
   <![endif]-->
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/flot/jquery.flot.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/flot/jquery.flot.time.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/leaflet/0.7.3/leaflet.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/leaflet.markercluster/leaflet.markercluster.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery-ui-1.8.16.custom.min.js"></script>
-  <script src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery.event.drag-2.2.js"></script>
-  <script src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery.event.drop-2.2.js"></script>
+  <script type="text/javascript" src="/recline/jquery.flot.js"></script>
+  <script type="text/javascript" src="/recline/jquery.flot.time.js"></script>
+  <script type="text/javascript" src="/recline/leaflet.js"></script>
+  <script type="text/javascript" src="/recline/leaflet.markercluster.js"></script>
+  <script type="text/javascript" src="/recline/jquery-ui-1.8.16.custom.min.js"></script>
+  <script src="/recline/jquery.event.drag-2.2.js"></script>
+  <script src="/recline/jquery.event.drop-2.2.js"></script>
 
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/jquery.event.drag-2.0.min.js"></script>
-  <!--script type="text/javascript" src="../vendor/slickgrid/2.0.1/slick.grid.min.js"></script-->
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.core.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.formatters.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.editors.js"></script>
-  <!--script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/slick.grid.js"></script-->
-<script type="text/javascript" src="/src/slick.grid.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/plugins/slick.rowselectionmodel.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/slickgrid/2.0.1/plugins/slick.rowmovemanager.js"></script>
+  <script type="text/javascript" src="/recline/jquery.event.drag-2.0.min.js"></script>
+  <!--script type="text/javascript" src="../slickgrid/2.0.1/slick.grid.min.js"></script-->
+  <script type="text/javascript" src="/recline/slick.core.js"></script>
+  <script type="text/javascript" src="/recline/slick.formatters.js"></script>
+  <script type="text/javascript" src="/recline/slick.editors.js"></script>
+  <!--script type="text/javascript" src="/recline/slickgrid/2.0.1/slick.grid.js"></script-->
+<script type="text/javascript" src="/recline/slick.grid.js"></script>
+  <script type="text/javascript" src="/recline/slick.rowselectionmodel.js"></script>
+  <script type="text/javascript" src="/recline/slick.rowmovemanager.js"></script>
 
 
-  <script type="text/javascript" src="http://okfnlabs.org/recline/vendor/moment/2.0.0/moment.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
-  <!--script type="text/javascript" src="http://okfnlabs.org/recline/vendor/timeline/js/timeline.js"></script-->
+  <script type="text/javascript" src="/recline/moment.js"></script>
+  <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script!-->
+
+  <!--script type="text/javascript" src="/recline/timeline/js/timeline.js"></script-->
   <!--[if lte IE 7]>
-  <script language="javascript" type="text/javascript" src="../vendor/json/json2.js"></script>
+  <script language="javascript" type="text/javascript" src="../json/json2.js"></script>
   <![endif]-->
 
   <!--
@@ -431,30 +437,30 @@ function create_data(){
   -->
 
   <!-- model and backends -->
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/ecma-fixes.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/model.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/backend.memory.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/backend.dataproxy.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline.backend.gdocs/backend.gdocs.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/csv.js/csv.js"></script>
+  <script type="text/javascript" src="/recline/ecma-fixes.js"></script>
+  <script type="text/javascript" src="/recline/model.js"></script>
+  <script type="text/javascript" src="/recline/backend.memory.js"></script>
+  <script type="text/javascript" src="/recline/backend.dataproxy.js"></script>
+  <script type="text/javascript" src="/recline/backend.gdocs.js"></script>
+  <script type="text/javascript" src="/recline/csv.js"></script>
 
   <!-- views -->
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.grid.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.slickgrid.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.flot.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.graph.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.map.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.timeline.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.pager.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.queryeditor.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.filtereditor.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.valuefilter.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.facetviewer.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/widget.fields.js"></script>
-  <script type="text/javascript" src="http://okfnlabs.org/recline/src/view.multiview.js"></script>
+  <script type="text/javascript" src="/recline/view.grid.js"></script>
+  <script type="text/javascript" src="/recline/view.slickgrid.js"></script>
+  <script type="text/javascript" src="/recline/view.flot.js"></script>
+  <script type="text/javascript" src="/recline/view.graph.js"></script>
+  <script type="text/javascript" src="/recline/view.map.js"></script>
+  <script type="text/javascript" src="/recline/view.timeline.js"></script>
+  <script type="text/javascript" src="/recline/widget.pager.js"></script>
+  <script type="text/javascript" src="/recline/widget.queryeditor.js"></script>
+  <script type="text/javascript" src="/recline/widget.filtereditor.js"></script>
+  <script type="text/javascript" src="/recline/widget.valuefilter.js"></script>
+  <script type="text/javascript" src="/recline/widget.facetviewer.js"></script>
+  <script type="text/javascript" src="/recline/widget.fields.js"></script>
+  <script type="text/javascript" src="/recline/view.multiview.js"></script>
 
             
-<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="/app.js"></script>
 
 <!--
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
