@@ -62,9 +62,22 @@
 
   <link rel="stylesheet" href="jquery-ui.css">
 
-  <link rel="stylesheet" href="/jquery-ui.css">
   <script src="/qbuilder.js"></script>
 <script>
+var AVTO = [];
+function genAVTO(){
+    var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fx%0AWHERE+%7B%0A++%3Fx+%3Fp+%3Fy.%0A%7D&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
+    var json_all = $.getJSON(url).complete(function(){
+    var json = json_all.responseJSON
+    
+    for(var i=0; i < json.results.bindings.length; i++){
+            if(contains(AVTO, json.results.bindings[i].x.value) == false)
+                AVTO.push(json.results.bindings[i].x.value)
+    }
+
+
+  });
+}
  function contains(array, element){
       var result = false;
       for(var i=0; i < array.length; i++)
@@ -132,9 +145,7 @@ function genQuery(){
         var predicates = $("#predicates").val();
         var subject = $("#subject").val();
         var object = $("#object").val();
-        if($("#3rd").css( "visibility", "hidden" ).is( ":hidden" )){
-          object = "";
-        }
+        if($("#3rd").is(":visible") == false){object = "";}
         var limit = $("#limit").val();
         if(limit == "" || limit == null)
           limit = 20;
@@ -157,6 +168,7 @@ function genQuery(){
       }
    function showObject(){
     $("#3rd").show();
+    //genAVTO();
     var count = 0;
       console.log("changed...");
       var predicates = $("#predicates").val();
@@ -208,7 +220,7 @@ function genQuery(){
               }
       }
     var ws = false;
-
+    //avTO = availableTags_object.slice();
     $( "#object" ).autocomplete({
       source: availableTags_object,
       select: function(event, ui) { if(is_OBJ(ui.item.idx)){add_new_tr("#putItHere", ui.item.label); ws = true;} }
@@ -217,8 +229,16 @@ function genQuery(){
       $("#object").val("");
 
     function is_OBJ(id){
+      var result = false;
       if(type[id] == "bnode")
         return true;
+      console.log(availableTags_object[id])
+      console.log(AVTO)
+      //for(var i =0; i < all_subj.length; i++){
+        //console.log(all_subj.indexOf(AVTO[id]))
+        if(all_subj.indexOf(availableTags_object[id].label)!= -1)
+          return true;
+      //}
       return false;
     }
     console.log(type);
@@ -245,7 +265,10 @@ function genQuery(){
   //bnode!!!
 </script>
 <div id="querybuilderdiv" style="display:none;">
+  <button onClick="location.reload()" class="mybutton"><i class="fa fa-refresh"></i>
+ {{_("Clear form")}}</button>
  <table border="1" width="100%" id="qTable">
+
   <tr> 
     <td>Subject</td>
     <td>Predicates</td>
@@ -258,14 +281,15 @@ function genQuery(){
       <div class="ui-widget">
        
         <input id="predicates" style="width:98.8%; margin-top: 1.43em;">
+        <button onclick="addPredicate()" class="mybutton"> {{_('Add predicate')}}</button>
       </div>
-      <button onclick="addPredicate()"> Add predicate</button>
+      
     </td>
     <td width="33%">
       <div class="ui-widget" id="2nd" style="display:none">
         
-        <input id="subject"  style="width:98.8%">
-        <button onclick="showObject()"> Add object</button>
+        <input id="subject"  style="width:98.8%; margin-top: 1.43em;">
+        <button onclick="showObject()" class="mybutton"> {{_('Add object')}}</button>
       </div>
     </td>
     <td width="33%">
@@ -301,7 +325,7 @@ WHERE {
 LIMIT 20
 </textarea>
 
-        <button id="sparql_btn" class="btn" onclick="call_sparql_point_server();">{{ _('Submit Query') }}</button>
+        <button id="sparql_btn" class="mybutton" onclick="call_sparql_point_server();">{{ _('Submit Query') }}</button>
         
         <div id="sparql_link_query" class="control-group control-full">
             <label class="control-label" for="field-link-sparql-server-query">{{ _('Permanent links') }}</label>
