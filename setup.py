@@ -22,10 +22,12 @@ setup(
 	install_requires=[
 		# -*- Extra requirements: -*-
 	],
-	entry_points="""
-        [ckan.plugins]
-	# Add plugins here, eg
-	# myplugin=ckanext.sparql:PluginClass
-	sparql_interface = ckanext.sparql.plugin:SparqlPlugin
-	""",
+	entry_points={
+        'babel.extractors': [
+                'ckan = ckan.lib.extract:extract_ckan',
+                ],
+        'ckan.plugins' : [
+                'sparql_interface = ckanext.sparql.plugin:SparqlPlugin',
+                ],
+        },
 )
