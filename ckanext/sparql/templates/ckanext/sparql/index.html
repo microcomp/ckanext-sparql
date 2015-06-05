@@ -8,13 +8,557 @@
 {% endblock %}
 
 {% block primary %}
-{{ _('test primary content') }}
+
+  	<header class="sparql_hideme">
+		<p>{{ _('Sparql EndPoint Interface.') }}</p>
+	</header>
+	
+    <div id="sparql_point_block">
+       <noscript>
+    <div class="alert alert-danger" role="alert">
+  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+  <span class="sr-only">Error:</span>
+  {{_('please turn on javascript to access website')}}
+</div></noscript> 
+        <h1>SPARQL Editor</h1>
+        
+        <div class="control-group control-full" 
+        {% if h.sparql_hide_endpoint_url() %} 
+        	style="display:none; " 
+        {% endif %}>
+        	<label class="control-label" for="field-sparql-server">{{ _('Sparql Point Server') }}</label>
+            <div class="controls">
+                <input id="field-sparql-server" type="text" name="sparql-server" value="{{h.sparql_endpoint_url()}}" placeholder="{{ _('Add the Sparql service URL. For Instance:') }} {{h.sparql_endpoint_url()}}">
+            </div>
+            <i class="icon-exclamation-sign"></i>&nbsp;<small>{{ _('Add the Sparql service URL. For Instance:') }} <abbr title="Sparql Point"><a target="_blank" href="http://semantic.ckan.net/sparql">http://semantic.ckan.net/sparql</a></abbr></small>
+        </div>
+        
+		<i class="icon-comment"></i><small><abbr title="Code Mirror"><a target="_blank" href="http://codemirror.net/">&nbsp;{{ _('Created using Code Mirror for the interface') }}</a></abbr></small>
+
+    <!-- QUERY BUILDER TEST-->
+
+  <link rel="stylesheet" href="jquery-ui.css">
+
+  <script src="/qbuilder.js"></script>
+<script>
+var AVTO = [];
+function genAVTO(){
+    var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fx%0AWHERE+%7B%0A++%3Fx+%3Fp+%3Fy.%0A%7D&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
+    var json_all = $.getJSON(url).complete(function(){
+    var json = json_all.responseJSON
+    
+    for(var i=0; i < json.results.bindings.length; i++){
+            if(contains(AVTO, json.results.bindings[i].x.value) == false)
+                AVTO.push(json.results.bindings[i].x.value)
+    }
+
+
+  });
+}
+ function contains(array, element){
+      var result = false;
+      for(var i=0; i < array.length; i++)
+          if(array[i] == element)
+              return true
+      return false;
+  }
+
+
+
+function addPredicate(){
+    $("#2nd").show();
+    $("#object").val("");
+    var val = $("#predicates").val();
+    $(function() {
+      // base url...
+      var count = 0;
+      for(var i=0; i < val.length; i++){
+          if(val[i]=='/'){
+              count++;
+          }
+      }
+      for(var i= 0; i < count; i++){
+          val= val.replace('/',"%2F");
+      }
+      
+      
+      val= val.replace(':',"%3A");
+      val = val.replace('#','%23');
+     var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fp%0AWHERE%7B%0A%3Fs+%3Fp+%3Fo+%0AFILTER+REGEX(str(%3Fs)%2C+'%5E"+val+"%24')%0A%7D%0A&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
+
+//http://192.168.21.27:5000/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fp%0AWHERE%7B%0A%3Fs+%3Fp+%3Fo+%0AFILTER+REGEX(str(%3Fs)%2C+'%5E"+val+"%24')%0A%7D%0A&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json
+      console.log(val);
+      //console.log(url);
+      
+
+    var json_all = $.getJSON(url).complete(function(){
+    var json = json_all.responseJSON
+    var availableTags = []
+    for(var i=0; i < json.results.bindings.length; i++){
+
+            if(contains(availableTags, json.results.bindings[i].p.value) == false)
+                availableTags.push(json.results.bindings[i].p.value)
+    }
+    
+
+    $( "#subject" ).autocomplete({
+      source: availableTags
+    });
+  });});
+}
+
+var level = 1;
+function genQuery(){
+        var namespaces = "PREFIX void: <http://rdfs.org/ns/void#> \nPREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> \nPREFIX foaf: <http://xmlns.com/foaf/0.1/> \nPREFIX vann: <http://purl.org/vocab/vann/> \nPREFIX teach: <http://linkedscience.org/teach/ns#> \nPREFIX dcterms: <http://purl.org/dc/terms/> \nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dcat: <http://www.w3.org/ns/dcat#> \nPREFIX crsw: <http://courseware.rkbexplorer.com/ontologies/courseware#> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#> \nPREFIX owl: <http://www.w3.org/2002/07/owl#> \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \nPREFIX aiiso: <http://purl.org/vocab/aiiso/schema#> \nPREFIX univcat: <http://data.upf.edu/upf/ontologies/universidadcatalana#> \nPREFIX skos: <http://www.w3.org/2004/02/skos/core#> \nPREFIX vivo: <http://vivoweb.org/ontology/core#> \nPREFIX sbench: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> \nPREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> \nPREFIX sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> \nPREFIX sdmx-code: <http://purl.org/linked-data/sdmx/2009/code#> \nPREFIX disco: <http://rdf-vocabulary.ddialliance.org/discovery#> \nPREFIX sdmx-dimension: <http://purl.org/linked-data/sdmx/2009/dimension#> \nPREFIX sdmx-measure: <http://purl.org/linked-data/sdmx/2009/measure#> \nPREFIX qb: <http://purl.org/linked-data/cube#> \nPREFIX sdmx: <http://purl.org/linked-data/sdmx#> \n\n"
+        //var namespaces = "\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n\nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>\n\nPREFIX swrc: <http://swrc.ontoware.org/ontology#>\n\n";
+        var items = new Array();
+        var criterias = new Array();
+        var clazz = new Array();
+        var number = 0;
+        var _sub;
+        var _obj;
+        
+        var query = namespaces;
+        var predicates = $("#predicates").val();
+        var subject = $("#subject").val();
+        var object = $("#object").val();
+        if($("#3rd").is(":visible") == false){object = "";}
+        var limit = $("#limit").val();
+        if(limit == "" || limit == null)
+          limit = 20;
+
+        if(predicates == ""){ //000
+          query+= "SELECT *\n WHERE{\n?s ?p ?o \n } \nLIMIT "+limit+" \n";
+        }else if(predicates != "" && subject == "" && object == ""){ //100
+          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '^"+predicates+"$')\n}\nLIMIT "+limit+" \n";
+        }else if(predicates!= "" && subject != "" && object == ""){ //110
+          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '^"+predicates+"$')\nFILTER REGEX(str(?p), '^"+subject+"$')\n}\nLIMIT "+limit+" \n";
+        }else if(predicates != "" && subject == "" && object != ""){ //101
+          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '^"+predicates+"$')\nFILTER REGEX(str(?o), '^"+object+"$')\n}\nLIMIT "+limit+" \n";
+        }else if(predicates != "" && subject != "" && object != ""){ //111
+          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '^"+predicates+"$')\nFILTER REGEX(str(?p), '^"+subject+"$')\nFILTER REGEX(str(?o), '"+object+"')\n}\nLIMIT "+limit+" \n";
+        }
+
+        console.log(query);
+        
+        editor.setValue(query);
+      }
+   function showObject(){
+    $("#3rd").show();
+    //genAVTO();
+    var count = 0;
+      console.log("changed...");
+      var predicates = $("#predicates").val();
+      var subject = $("#subject").val();
+
+      for(var i=0; i < predicates.length; i++){
+          if(predicates[i]=='/'){
+              count++;
+          }
+      }
+      for(var i= 0; i < count; i++){
+          predicates= predicates.replace('/',"%2F");
+      }
+      count = 0;
+      
+      predicates= predicates.replace(':',"%3A");
+      predicates = predicates.replace('#','%23');
+
+
+      for(var i=0; i < subject.length; i++){
+          if(subject[i]=='/'){
+              count++;
+          }
+      }
+      for(var i= 0; i < count; i++){
+          subject= subject.replace('/',"%2F");
+      }
+      
+      
+      subject= subject.replace(':',"%3A");
+      subject = subject.replace('#','%23');
+
+
+      var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fo+%0AWHERE%7B%0A%3Fs+%3Fp+%3Fo+%0AFILTER+REGEX(str(%3Fs)%2C+'%5E"+predicates+"%24')%0AFILTER+REGEX(str(%3Fp)%2C+'%5E"+subject+"%24')%0A%7D%0ALIMIT+20+%0A&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
+
+      var json_all_object = $.getJSON(url).complete(function(){
+      var json_object = json_all_object.responseJSON;
+      var availableTags_object = [];
+      var type = [];
+      var id = 0;
+      for(var i=0; i < json_object.results.bindings.length; i++){
+
+              if(contains(availableTags_object, json_object.results.bindings[i].o.value) == false){
+                  var x = {}
+
+                  availableTags_object.push({'label':json_object.results.bindings[i].o.value, idx:id})
+                  id++;
+                  type.push(json_object.results.bindings[i].o.type)
+              }
+      }
+    var ws = false;
+    //avTO = availableTags_object.slice();
+    $( "#object" ).autocomplete({
+      source: availableTags_object,
+      select: function(event, ui) { if(is_OBJ(ui.item.idx)){add_new_tr("#putItHere", ui.item.label); ws = true;} }
+    });
+    if(ws)
+      $("#object").val("");
+
+    function is_OBJ(id){
+      var result = false;
+      if(type[id] == "bnode")
+        return true;
+      console.log(availableTags_object[id])
+      console.log(AVTO)
+      //for(var i =0; i < all_subj.length; i++){
+        //console.log(all_subj.indexOf(AVTO[id]))
+        if(all_subj.indexOf(availableTags_object[id].label)!= -1)
+          return true;
+      //}
+      return false;
+    }
+    console.log(type);
+
+  });
+
+  }
+
+  function add_new_tr(where, last){
+    var str = "<tr><td><input readonly value='";
+    str+= $('#predicates').val();
+    str+= "'></td><td><input readonly value='";
+    str+= $('#subject').val();
+    str+= "'></td><td><input readonly value='";
+    str+= last;
+    str+= "'></td></tr>";
+    $("#predicates").val(last);
+    $("#subject").val("");
+    $("#object").val("");
+    $("#2nd").hide();
+    $("#3rd").hide();
+    $(where).after($(str));
+  }
+  //bnode!!!
+</script>
+<div id="querybuilderdiv" style="display:none;">
+  <button onClick="location.reload()" class="mybutton"><i class="fa fa-refresh"></i>
+ {{_("Clear form")}}</button>
+ <table border="1" width="100%" id="qTable">
+
+  <tr> 
+    <td>Subject</td>
+    <td>Predicates</td>
+    <td>Object</td>
+  </tr>
+  <tr id="putItHere"></tr>
+  <tr> 
+
+    <td width="33%"> 
+      <div class="ui-widget">
+       
+        <input id="predicates" style="width:98.8%; margin-top: 1.43em;">
+        <button onclick="addPredicate()" class="mybutton"> {{_('Add predicate')}}</button>
+      </div>
+      
+    </td>
+    <td width="33%">
+      <div class="ui-widget" id="2nd" style="display:none">
+        
+        <input id="subject"  style="width:98.8%; margin-top: 1.43em;">
+        <button onclick="showObject()" class="mybutton"> {{_('Add object')}}</button>
+      </div>
+    </td>
+    <td width="33%">
+      <div class="ui-widget" id="3rd" style="display:none" style="width:98.8%">
+       
+        <input id="object" >
+      </div>
+    </td>
+  </tr>
+</table>
+
+
+<div> <label for="limit" >Limit</label><input id="limit" ><br/><input type="button" value="Generate Query" onclick="genQuery();"/></div>
+
+<textarea id="generated_query" style="display:none">
+
+</textarea>
+</div>
+
+    <!-- QUERY BUILDER TEST-->
+		<br><br>
+
+		<div id="test_sparql" class="sparql_hideme"></div>
+
+<textarea id="sparql_code" name="sparql_code"  resize="both">
+#Add here other prefixes for vocabularies that are needed
+#PREFIX othervocab: <http://...... 
+
+SELECT * 
+WHERE {
+  	?s ?p ?o
+      } 
+LIMIT 20
+</textarea>
+
+        <button id="sparql_btn" class="mybutton" onclick="call_sparql_point_server();">{{ _('Submit Query') }}</button>
+        
+        <div id="sparql_link_query" class="control-group control-full">
+            <label class="control-label" for="field-link-sparql-server-query">{{ _('Permanent links') }}</label>
+            
+            <i class="icon-info-sign"></i>&nbsp;<small><abbr title="Link Query"><a target="_blank" id="go_to_link_query_json">{{ _('JSON Format') }}<i class="icon-link"></i></a></abbr><b>&nbsp;&nbsp;({{ _('You can copy the permanent link below') }})</b></small><br>
+            <div class="controls">
+                <input id="field-link-sparql-server-query_json" type="text" name="sparql-server-query" value="" placeholder="">
+            </div>
+            
+            <i class="icon-info-sign"></i>&nbsp;<small><abbr title="Link Query"><a target="_blank" id="go_to_link_query_turtle">{{ _('TURTLE Format') }}<i class="icon-link"></i></a></abbr><b>&nbsp;&nbsp;({{ _('You can copy the permanent link below') }})</b></small><br>
+            <div class="controls">
+                <input id="field-link-sparql-server-query_turtle" type="text" name="sparql-server-query" value="" placeholder="">
+            </div>
+            
+            <i class="icon-info-sign"></i>&nbsp;<small><abbr title="Link Query"><a target="_blank" id="go_to_link_query_csv">{{ _('CSV Format') }}<i class="icon-link"></i></a></abbr><b>&nbsp;&nbsp;({{ _('You can copy the permanent link below') }})</b></small><br>
+            <div class="controls">
+                <input id="field-link-sparql-server-query_csv" type="text" name="sparql-server-query" value="" placeholder="">
+            </div>
+            
+            <i class="icon-info-sign"></i>&nbsp;<small><abbr title="Link Query"><a target="_blank" id="go_to_link_query_query">{{ _('Permanent Link for this Query (To save your Query)') }}<i class="icon-link"></i></a></abbr></small>
+
+            
+        </div>
+        <br>
+    	<div id="loading_image" class="span8 offset1">
+			<center><img src="{% url_for_static '/public_sparql/gif-load.gif' %}" alt="Loading"></center>
+			<br>
+			<br>
+			<br>
+		</div>
+        
+        <div style="margin-left:1em;"> <div id="sparql_results"></div></div>
+    
+    </div>
+<style>
+#content > div.row.wrapper.no-nav > div.data-explorer-here{
+  margin-left: 1.5em;
+}
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.navigation > div > button.btn.btn-default{
+  margin: -5px;
+}
+
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.page-range, 
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.next.action-pagination-update > a,
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.prev.action-pagination-update > a{
+  padding-bottom: 0px;
+}
+#q{
+  width: 100px;
+}
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.query-editor-here > div > form > button{
+  display: none;
+}
+</style>
+<!--
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+create_data()
+-->
+
+<script type="text/javascript">
+function create_data(){
+  var url = $("#field-link-sparql-server-query_json").val();
+
+  var json = $.getJSON( url, function() {
+      })
+        .done(function() {
+        })
+      .fail(function() {
+      })
+      .always(function() {
+      }
+    );
+   
+  var x;
+  json.complete(function() {
+    x = json.responseJSON;
+    
+  });
+
+
+
+  json.complete().complete(function(){
+  function toObject(arr) {
+    var rv = {};
+    for (var i = 0; i < arr.length; ++i)
+      rv[i] = arr[i];
+    return rv;
+  }
+
+  var vars = [];
+  for(var i = 0; i < x.head.vars.length; i++){
+    vars.push({id:String(x.head.vars[i]), type: "text"});
+  }
+  var records = [];
+
+  for(var i = 0;  i < x.results.bindings.length; i++){
+    var dict = {};
+    for(var j = 0; j < vars.length; j++){
+      
+      dict[String("_"+vars[j]["id"])]= x.results.bindings[i][vars[j]["id"]]["value"];
+    }
+    records.push(dict);
+  }
+  for(var i = 0; i <vars.length; i++){
+      vars[i].id = "_"+vars[i].id
+  }
+  data_from_json = {records:records, fields:vars};
+  if($(".recline-data-explorer").length > 0){
+    $(".recline-data-explorer")[0].remove();
+  }
+  $("#field-link-sparql-server-query_json").on('change',function(){$(".recline-data-explorer")[0].remove;})
+  var dataset = createDemoDataset();
+  window.multiview = createMultiView(dataset);
+
+  var url = $("#field-link-sparql-server-query_json").val();
+  var json = $.getJSON(url);
+  json = json.responseJSON;
+}
+).complete(function(){
+    var rem = document.getElementsByClassName('slick-column-name')
+    for(var i = 0; i < rem.length; i++){
+      rem[i].innerHTML = rem[i].innerHTML.substring(1, rem[i].innerHTML.length)
+    $("#showdata").hide();
+    $("#updatedata").show();
+}
+});
+
+}
+
+</script>
+
+<style type="text/css">
+
+.recline-slickgrid {
+  height: 300px;
+}
+
+.recline-timeline .vmm-timeline {
+  height: 550px;
+}
+
+.changelog {
+  display: none;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.data-view-sidebar > div.recline-row-add > h1 > a{
+  font-size: 1em;
+}
+#content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.query-editor-here > div > form > div > input{
+  height: 
+}
+.slick-column-name::first-letter {
+  color: rgba(0, 0, 0, 0);
+  display: none;
+}
+
+</style>
+
+<div class="data-explorer-here"></div>
+
+<div style="clear: both;"></div>
+
+
+  
+     
+      <link rel="stylesheet" href="/recline/leaflet.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="../leaflet/0.7.3/leaflet.ie.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="/recline/MarkerCluster.css">
+  <link rel="stylesheet" href="/recline/MarkerCluster.Default.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="../leaflet.markercluster/MarkerCluster.Default.ie.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="/recline/slick.grid.css">
+  <link rel="stylesheet" href="/recline/timeline.css">
+
+  <!-- Recline CSS components -->
+  <link rel="stylesheet" href="/recline/grid.css">
+  <link rel="stylesheet" href="/recline/slickgrid.css">
+  <link rel="stylesheet" href="/recline/flot.css">
+  <link rel="stylesheet" href="/recline/map.css">
+  <link rel="stylesheet" href="/recline/multiview.css">
+  <link rel="stylesheet" href="/recline/timeline.css">
+
+
+ <!--script src="/recline/slickgrid/2.0.1/jquery-1.7.min.js"></script!-->
+  <script type="text/javascript" src="/recline/underscore.js"></script>
+  <script type="text/javascript" src="/recline/backbone.js"></script>
+  <script type="text/javascript" src="/recline/mustache.js"></script>
+  <script type="text/javascript" src="/recline/bootstrap.js"></script>
+  <!--[if lte IE 8]>
+  <script language="javascript" type="text/javascript" src="../flot/excanvas.min.js"></script>
+  <![endif]-->
+  <script type="text/javascript" src="/recline/jquery.flot.js"></script>
+  <script type="text/javascript" src="/recline/jquery.flot.time.js"></script>
+  <script type="text/javascript" src="/recline/leaflet.js"></script>
+  <script type="text/javascript" src="/recline/leaflet.markercluster.js"></script>
+  <script type="text/javascript" src="/recline/jquery-ui-1.8.16.custom.min.js"></script>
+  <script src="/recline/jquery.event.drag-2.2.js"></script>
+  <script src="/recline/jquery.event.drop-2.2.js"></script>
+
+  <script type="text/javascript" src="/recline/jquery.event.drag-2.0.min.js"></script>
+  <!--script type="text/javascript" src="../slickgrid/2.0.1/slick.grid.min.js"></script-->
+  <script type="text/javascript" src="/recline/slick.core.js"></script>
+  <script type="text/javascript" src="/recline/slick.formatters.js"></script>
+  <script type="text/javascript" src="/recline/slick.editors.js"></script>
+  <!--script type="text/javascript" src="/recline/slickgrid/2.0.1/slick.grid.js"></script-->
+<script type="text/javascript" src="/recline/slick.grid.js"></script>
+  <script type="text/javascript" src="/recline/slick.rowselectionmodel.js"></script>
+  <script type="text/javascript" src="/recline/slick.rowmovemanager.js"></script>
+
+
+  <script type="text/javascript" src="/recline/moment.js"></script>
+  <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.js"></script!-->
+
+  <!--script type="text/javascript" src="/recline/timeline/js/timeline.js"></script-->
+  <!--[if lte IE 7]>
+  <script language="javascript" type="text/javascript" src="../json/json2.js"></script>
+  <![endif]-->
+
+  <!--
+    ## Just use the all in one library version rather than individual files
+  <script type="text/javascript" src="../dist/recline.js"></script>
+  -->
+
+  <!-- model and backends -->
+  <script type="text/javascript" src="/recline/ecma-fixes.js"></script>
+  <script type="text/javascript" src="/recline/model.js"></script>
+  <script type="text/javascript" src="/recline/backend.memory.js"></script>
+  <script type="text/javascript" src="/recline/backend.dataproxy.js"></script>
+  <script type="text/javascript" src="/recline/backend.gdocs.js"></script>
+  <script type="text/javascript" src="/recline/csv.js"></script>
+
+  <!-- views -->
+  <script type="text/javascript" src="/recline/view.grid.js"></script>
+  <script type="text/javascript" src="/recline/view.slickgrid.js"></script>
+  <script type="text/javascript" src="/recline/view.flot.js"></script>
+  <script type="text/javascript" src="/recline/view.graph.js"></script>
+  <script type="text/javascript" src="/recline/view.map.js"></script>
+  <script type="text/javascript" src="/recline/view.timeline.js"></script>
+  <script type="text/javascript" src="/recline/widget.pager.js"></script>
+  <script type="text/javascript" src="/recline/widget.queryeditor.js"></script>
+  <script type="text/javascript" src="/recline/widget.filtereditor.js"></script>
+  <script type="text/javascript" src="/recline/widget.valuefilter.js"></script>
+  <script type="text/javascript" src="/recline/widget.facetviewer.js"></script>
+  <script type="text/javascript" src="/recline/widget.fields.js"></script>
+  <script type="text/javascript" src="/recline/view.multiview.js"></script>
+
+            
+<script type="text/javascript" src="/app.js"></script>
+
 {% endblock %}
 
-{% block secondary %}
-{{ _('Test secondary content') }}
-{% endblock %}
-
+{% block secondary %}{% endblock %}
 
 {% block scripts %}
   {{ super() }}  
