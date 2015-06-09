@@ -43,7 +43,7 @@
   <span class="sr-only">Error:</span>
   {{_('please turn on javascript to access website')}}
 </div></noscript> 
-        <h1>SPARQL Editor</h1>
+        <h1>{{_('SPARQL Editor')}}</h1>
         
         <div class="control-group control-full" 
         {% if h.sparql_hide_endpoint_url() %} 
@@ -62,22 +62,9 @@
 
   <link rel="stylesheet" href="jquery-ui.css">
 
+  <link rel="stylesheet" href="/jquery-ui.css">
   <script src="/qbuilder.js"></script>
 <script>
-var AVTO = [];
-function genAVTO(){
-    var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fx%0AWHERE+%7B%0A++%3Fx+%3Fp+%3Fy.%0A%7D&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
-    var json_all = $.getJSON(url).complete(function(){
-    var json = json_all.responseJSON
-    
-    for(var i=0; i < json.results.bindings.length; i++){
-            if(contains(AVTO, json.results.bindings[i].x.value) == false)
-                AVTO.push(json.results.bindings[i].x.value)
-    }
-
-
-  });
-}
  function contains(array, element){
       var result = false;
       for(var i=0; i < array.length; i++)
@@ -85,13 +72,9 @@ function genAVTO(){
               return true
       return false;
   }
-
-
-var first = true;
 function addPredicate(){
-
     $("#2nd").show();
-    $("#object").val("");
+    $("#3rd").show();
     var val = $("#predicates").val();
     $(function() {
       // base url...
@@ -108,31 +91,22 @@ function addPredicate(){
       
       val= val.replace(':',"%3A");
       val = val.replace('#','%23');
-     //var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fp%0AWHERE%7B%0A%3Fs+%3Fp+%3Fo+%0AFILTER+REGEX(str(%3Fs)%2C+'%5E"+val+"%24')%0A%7D%0A&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
-     var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fp+%0AWHERE%7B%0A%3C"+val+"%3E+%3Fp+%3Fo+%0A%7D%0ALIMIT+20+%0A&server=http%3A%2F%2Fdbpedia.org%2Fsparql&direct_link=1&type_response_query=json"
-      console.log(val);      
-
+      var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3EPREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E%0APREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E%0APREFIX+swrc%3A+%3Chttp%3A%2F%2Fswrc.ontoware.org%2Fontology%23%3E%0A%0ASELECT+%3Fp%0AWHERE%7B%0A%09%3Fx+%3Fp+%3Fy+filter+regex(%3Fx%2C%22"+val+"%22)%0A%7D&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
+      //console.log(val);
+      //console.log(url);
     var json_all = $.getJSON(url).complete(function(){
     var json = json_all.responseJSON
     var availableTags = []
     for(var i=0; i < json.results.bindings.length; i++){
-
             if(contains(availableTags, json.results.bindings[i].p.value) == false)
                 availableTags.push(json.results.bindings[i].p.value)
     }
     
-
     $( "#subject" ).autocomplete({
-      source: availableTags,
-      minLength: 0
-    }).focus(function() {
-    $(this).autocomplete("search", $(this).val());
-});
+      source: availableTags
+    });
   });});
-
 }
-var query = "";
-var tos = "";
 var level = 1;
 function genQuery(){
         var namespaces = "PREFIX void: <http://rdfs.org/ns/void#> \nPREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> \nPREFIX foaf: <http://xmlns.com/foaf/0.1/> \nPREFIX vann: <http://purl.org/vocab/vann/> \nPREFIX teach: <http://linkedscience.org/teach/ns#> \nPREFIX dcterms: <http://purl.org/dc/terms/> \nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> \nPREFIX dcat: <http://www.w3.org/ns/dcat#> \nPREFIX crsw: <http://courseware.rkbexplorer.com/ontologies/courseware#> \nPREFIX xsd: <http://www.w3.org/2001/XMLSchema#> \nPREFIX owl: <http://www.w3.org/2002/07/owl#> \nPREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \nPREFIX aiiso: <http://purl.org/vocab/aiiso/schema#> \nPREFIX univcat: <http://data.upf.edu/upf/ontologies/universidadcatalana#> \nPREFIX skos: <http://www.w3.org/2004/02/skos/core#> \nPREFIX vivo: <http://vivoweb.org/ontology/core#> \nPREFIX sbench: <http://swat.cse.lehigh.edu/onto/univ-bench.owl#> \nPREFIX sdmx-attribute: <http://purl.org/linked-data/sdmx/2009/attribute#> \nPREFIX sdmx-concept: <http://purl.org/linked-data/sdmx/2009/concept#> \nPREFIX sdmx-code: <http://purl.org/linked-data/sdmx/2009/code#> \nPREFIX disco: <http://rdf-vocabulary.ddialliance.org/discovery#> \nPREFIX sdmx-dimension: <http://purl.org/linked-data/sdmx/2009/dimension#> \nPREFIX sdmx-measure: <http://purl.org/linked-data/sdmx/2009/measure#> \nPREFIX qb: <http://purl.org/linked-data/cube#> \nPREFIX sdmx: <http://purl.org/linked-data/sdmx#> \n\n"
@@ -144,219 +118,67 @@ function genQuery(){
         var _sub;
         var _obj;
         
-        var qr = namespaces; //TODO
-
-        
-
+        var query = namespaces;
         var predicates = $("#predicates").val();
         var subject = $("#subject").val();
         var object = $("#object").val();
-        if($("#3rd").is(":visible") == false){object = "";}
         var limit = $("#limit").val();
         if(limit == "" || limit == null)
           limit = 20;
-        if(predicates == ""){
-          predicates = "<"+predicates+"> ";
-        }else{ 
-          predicates = "?s";
-        }
-        if(subject == ""){
-          subject = "<"+subject+"> ";
-        }else{ 
-          subject = "?p";
-        }
-        qr+= "\n SELECT "+tos+"?"+level+"\n WHERE{\n"+query+" "+predicates+" "+subject+" ?"+level+".}\nLIMIT "+limit;
-        /*if(predicates == ""){ //000
+        if(predicates == ""){ //000
           query+= "SELECT *\n WHERE{\n?s ?p ?o \n } \nLIMIT "+limit+" \n";
         }else if(predicates != "" && subject == "" && object == ""){ //100
-          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '^"+predicates+"$')\n}\nLIMIT "+limit+" \n";
+          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '"+predicates+"','i')\n}\nLIMIT "+limit+" \n";
         }else if(predicates!= "" && subject != "" && object == ""){ //110
-          query += "SELECT * \nWHERE{\n?s ?p ?o \n<"+predicates+">\n<"+subject+">\n}\nLIMIT "+limit+" \n";
+          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '"+predicates+"','i')\nFILTER REGEX(str(?p), '"+subject+"', 'i')\n}\nLIMIT "+limit+" \n";
         }else if(predicates != "" && subject == "" && object != ""){ //101
-          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '^"+predicates+"$')\nFILTER REGEX(str(?o), '^"+object+"$')\n}\nLIMIT "+limit+" \n";
+          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '"+predicates+"','i')\nFILTER REGEX(str(?o), '"+object+"', 'i')\n}\nLIMIT "+limit+" \n";
         }else if(predicates != "" && subject != "" && object != ""){ //111
-          query += "SELECT "+tos+" \nWHERE{ \n<"+predicates+">\n<"+subject+">\n?1 FILTER REGEX(str(?1), '"+object+"')\n. }\nLIMIT "+limit+" \n";
-        }*/
-
-        console.log(qr);
+          query += "SELECT * \nWHERE{\n?s ?p ?o \nFILTER REGEX(str(?s), '"+predicates+"','i')\nFILTER REGEX(str(?p), '"+subject+"', 'i')\nFILTER REGEX(str(?o), '"+object+"', 'i')\n}\nLIMIT "+limit+" \n";
+        }
+        console.log(query);
         
-        editor.setValue(qr);
+        //$(".CodeMirror").remove();
+        //$("#sparql_code").text(query);
+        //$("#sparql_code").val(query);
+        //$("#sparql_code").val(query);
+        
+        editor.setValue(query);
       }
-   function showObject(){
-    $("#3rd").show();
-    //genAVTO();
-    var count = 0;
-      console.log("changed...");
-      var predicates = $("#predicates").val();
-      var subject = $("#subject").val();
-
-      for(var i=0; i < predicates.length; i++){
-          if(predicates[i]=='/'){
-              count++;
-          }
-      }
-      for(var i= 0; i < count; i++){
-          predicates= predicates.replace('/',"%2F");
-      }
-      count = 0;
-      
-      predicates= predicates.replace(':',"%3A");
-      predicates = predicates.replace('#','%23');
-
-
-      for(var i=0; i < subject.length; i++){
-          if(subject[i]=='/'){
-              count++;
-          }
-      }
-      for(var i= 0; i < count; i++){
-          subject= subject.replace('/',"%2F");
-      }
-      
-      
-      subject= subject.replace(':',"%3A");
-      subject = subject.replace('#','%23');
-
-
-     // var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fo+%0AWHERE%7B%0A%3Fs+%3Fp+%3Fo+%0AFILTER+REGEX(str(%3Fs)%2C+'%5E"+predicates+"%24')%0AFILTER+REGEX(str(%3Fp)%2C+'%5E"+subject+"%24')%0A%7D%0ALIMIT+20+%0A&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
-
-      var url = "http://192.168.21.27:5000/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fo%0AWHERE%7B%0A%3C"+predicates+"%3E%0A%3C"+subject+"%3E+%3Fo%0A%7D%0ALIMIT+20+%0A&server=http%3A%2F%2Fdbpedia.org%2Fsparql&direct_link=1&type_response_query=json";
-
-      var json_all_object = $.getJSON(url).complete(function(){
-      var json_object = json_all_object.responseJSON;
-      var availableTags_object = [];
-      var type = [];
-      var id = 0;
-      for(var i=0; i < json_object.results.bindings.length; i++){
-
-              if(contains(availableTags_object, json_object.results.bindings[i].o.value) == false){
-                  var x = {}
-
-                  availableTags_object.push({'label':json_object.results.bindings[i].o.value, idx:id})
-                  id++;
-                  type.push(json_object.results.bindings[i].o.type)
-              }
-      }
-    var ws = false;
-    //avTO = availableTags_object.slice();
-    $( "#object" ).autocomplete({
-      source: availableTags_object,
-      select: function(event, ui) { if(is_OBJ(ui.item.idx)){add_new_tr("#putItHere", ui.item.label); ws = true;} },
-      minLength: 0
-    }).focus(function() {
-    $(this).autocomplete("search", $(this).val());
-});
-    if(ws)
-      $("#object").val("");
-
-    function is_OBJ(id){
-      var result = false;
-      if(type[id] == "bnode")
-        return true;
-      console.log(availableTags_object[id])
-      console.log(AVTO)
-      //for(var i =0; i < all_subj.length; i++){
-        //console.log(all_subj.indexOf(AVTO[id]))
-        if(all_subj.indexOf(availableTags_object[id].label)!= -1)
-          return true;
-      //}
-      return false;
-    }
-    console.log(type);
-
-  });
-
-  }
-
-  function add_new_tr(where, last){
-    var str = "<tr><td><textarea readonly>";
-    str+= $('#predicates').val();
-    str+= "</textarea></td><td><textarea readonly>";
-    str+= $('#subject').val();
-    str+= "</textarea></td><td><textarea readonly>";
-    str+= last;
-    str+= "</textarea></td></tr>";
-    $("#predicates").val(last);
-    $("#subject").val("");
-    $("#object").val("");
-    $("#2nd").hide();
-    $("#3rd").hide();
-    $(where).after($(str));
-  }
-  //bnode!!!
-  function clear_form(){
-     $("#predicates").val("");
-     $("#subject").val("");
-     $("#object").val("");
-     location.reload();
-  }
 </script>
 <div id="querybuilderdiv" style="display:none;">
-  <button onClick="clear_form()" class="mybutton"><i class="fa fa-refresh"></i>
- {{_("Clear form")}}</button>
  <table border="1" width="100%" id="qTable">
-
   <tr> 
     <td>Subject</td>
     <td>Predicates</td>
     <td>Object</td>
   </tr>
-  <tr id="putItHere"></tr>
-  <tr> 
 
+  <tr> 
     <td width="33%"> 
       <div class="ui-widget">
        
-        <input id="predicates" style="width:98.8%; margin-top: 0.33em;">
-        <button onclick="addPredicate()" class="mybutton"> {{_('Add predicate')}}</button>
+        <input id="predicates" style="width:98.8%; margin-top: 1.43em;">
       </div>
-      
+      <button onclick="addPredicate()"> Add subject</button>
     </td>
     <td width="33%">
       <div class="ui-widget" id="2nd" style="display:none">
         
-        <input id="subject"  style="width:98.8%; margin-top: 0.33em;">
-        <button onclick="showObject()" class="mybutton"> {{_('Add object')}}</button>
+        <input id="subject" onChange="showObject" style="width:98.8%">
       </div>
     </td>
     <td width="33%">
-      <div class="ui-widget" id="3rd" style="display:none" style="width:98.8%;  ">
-       <script type="text/javascript">
-        function nextLVL(){
-
-          tos+= "?"+level+" ";
-          var predicates = $("#predicates").val();
-          var subject = $("#subject").val();
-          if(predicates!="")
-            query += "<"+predicates+">\n"
-          else
-            query += "?s"
-
-          if(subject != "")
-            query += "<"+subject+">\n"
-          else
-            query += "?p"
-
-          var obj = $("#object").val();
-
-          if(obj!= "")
-            query+= "?"+level+"FILTER REGEX(str(?"+level+",'"+obj+"').\n"
-          else
-            query+="?"+level+" .\n"
-          level += 1;
-          var o = $("#object").val();
-          add_new_tr('#putItHere', o);
-        }
-       </script>
-        <input id="object" style="margin-top: -2.83em;">
-        <button onclick="nextLVL()" class="mybutton"><i class="fa fa-plus"></i></button>
+      <div class="ui-widget" id="3rd" style="display:none" style="width:98.8%">
+       
+        <input id="object" onchange="showBtn" >
       </div>
     </td>
   </tr>
 </table>
 
 
-<div> <label for="limit" >Limit</label><input id="limit" ><br/><input type="button" class="mybutton" value="Generate Query" onclick="genQuery();"/></div>
+<div> <label for="limit" >Limit</label><input id="limit" ><br/><input type="button" value="Generate Query" onclick="genQuery();"/></div>
 
 <textarea id="generated_query" style="display:none">
 
@@ -379,7 +201,7 @@ WHERE {
 LIMIT 20
 </textarea>
 
-        <button id="sparql_btn" class="mybutton" onclick="call_sparql_point_server();">{{ _('Submit Query') }}</button>
+        <button id="sparql_btn" class="btn" onclick="call_sparql_point_server();">{{ _('Submit Query') }}</button>
         
         <div id="sparql_link_query" class="control-group control-full">
             <label class="control-label" for="field-link-sparql-server-query">{{ _('Permanent links') }}</label>
@@ -421,7 +243,6 @@ LIMIT 20
 #content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.navigation > div > button.btn.btn-default{
   margin: -5px;
 }
-
 #content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.page-range, 
 #content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.next.action-pagination-update > a,
 #content > div.row.wrapper.no-nav > div.data-explorer-here > div > div > div.header.clearfix > div.recline-pager > div > ul > li.prev.action-pagination-update > a{
@@ -442,7 +263,6 @@ create_data()
 <script type="text/javascript">
 function create_data(){
   var url = $("#field-link-sparql-server-query_json").val();
-
   var json = $.getJSON( url, function() {
       })
         .done(function() {
@@ -458,9 +278,6 @@ function create_data(){
     x = json.responseJSON;
     
   });
-
-
-
   json.complete().complete(function(){
   function toObject(arr) {
     var rv = {};
@@ -468,13 +285,11 @@ function create_data(){
       rv[i] = arr[i];
     return rv;
   }
-
   var vars = [];
   for(var i = 0; i < x.head.vars.length; i++){
     vars.push({id:String(x.head.vars[i]), type: "text"});
   }
   var records = [];
-
   for(var i = 0;  i < x.results.bindings.length; i++){
     var dict = {};
     for(var j = 0; j < vars.length; j++){
@@ -493,7 +308,6 @@ function create_data(){
   $("#field-link-sparql-server-query_json").on('change',function(){$(".recline-data-explorer")[0].remove;})
   var dataset = createDemoDataset();
   window.multiview = createMultiView(dataset);
-
   var url = $("#field-link-sparql-server-query_json").val();
   var json = $.getJSON(url);
   json = json.responseJSON;
@@ -506,21 +320,16 @@ function create_data(){
     $("#updatedata").show();
 }
 });
-
 }
-
 </script>
 
 <style type="text/css">
-
 .recline-slickgrid {
   height: 300px;
 }
-
 .recline-timeline .vmm-timeline {
   height: 550px;
 }
-
 .changelog {
   display: none;
   border-bottom: 1px solid #ccc;
@@ -536,7 +345,6 @@ function create_data(){
   color: rgba(0, 0, 0, 0);
   display: none;
 }
-
 </style>
 
 <div class="data-explorer-here"></div>
