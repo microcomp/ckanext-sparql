@@ -297,9 +297,9 @@ function genQuery(){
  <table border="1" width="100%" id="qTable">
 
   <tr> 
-    <td>Subject</td>
-    <td>Predicates</td>
-    <td>Object</td>
+    <td>{{_('Subject')}}</td>
+    <td>{{_('Predicates')}}</td>
+    <td>{{_('Object')}}</td>
   </tr>
   <tr id="putItHere"></tr>
   <tr> 
@@ -356,7 +356,7 @@ function genQuery(){
 </table>
 
 
-<div> <label for="limit" >Limit</label><input id="limit" ><br/><input type="button" class="mybutton" value="Generate Query" onclick="genQuery();"/></div>
+<div> <label for="limit" >Limit</label><input id="limit" ><br/><input type="button" class="mybutton" value="{{_('Generate Query')}}" onclick="genQuery();"/></div>
 
 <textarea id="generated_query" style="display:none">
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-sparql 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-05-13 16:23+0100\n"
+"POT-Creation-Date: 2015-06-11 10:32+0200\n"
 "PO-Revision-Date: 2015-05-13 16:24+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: sk <LL@li.org>\n"
@@ -19,9 +19,97 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
+#: ckanext/sparql/templates/ckanext/sparql/index.html:8
+#: ckanext/sparql/templates/ckanext/sparql/index.html:36
+msgid "Sparql EndPoint Interface."
+msgstr "Sparql užívateľské rozhranie"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:29
+msgid "Sparql Point"
+msgstr "Sparql rozhranie"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:44
+msgid "please turn on javascript to access website"
+msgstr "Prosím, povoľte javascript pre prístup k tejto stránke"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:46
+msgid "SPARQL Editor"
+msgstr ""
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:52
+msgid "Sparql Point Server"
+msgstr "Sparql server"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:54
+#: ckanext/sparql/templates/ckanext/sparql/index.html:56
+msgid "Add the Sparql service URL. For Instance:"
+msgstr "Zadajte URL Sparql služby. Napríklad:"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:59
+msgid "Created using Code Mirror for the interface"
+msgstr "Vytvorené pomocou Code Mirror pre užívateľské rozhranie"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:296
+msgid "Clear form"
+msgstr "Vyčistiť formulár"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:300
+msgid "Subject"
+msgstr "Predmet"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:301
+msgid "Predicates"
+msgstr "Predikát"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:302
+msgid "Object"
+msgstr "Objekt"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:311
+msgid "Add predicate"
+msgstr "Pridať predikát"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:319
+msgid "Add object"
+msgstr "Pridať objekt"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:359
+msgid "Generate Query"
+msgstr "Vygenerovať dotaz"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:382
+msgid "Submit Query"
+msgstr "Odoslať dotaz"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:385
+msgid "Permanent links"
+msgstr "Permanentné odkazy"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:387
+msgid "JSON Format"
+msgstr "JSON formát"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:387
+#: ckanext/sparql/templates/ckanext/sparql/index.html:392
+#: ckanext/sparql/templates/ckanext/sparql/index.html:397
+msgid "You can copy the permanent link below"
+msgstr "Nižšie si môžete skopírovať permanentný odkaz"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:392
+msgid "TURTLE Format"
+msgstr "TURTLE formát"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:397
+msgid "CSV Format"
+msgstr "CSV formát"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:402
+msgid "Permanent Link for this Query (To save your Query)"
+msgstr "Permanentný link pre tento dotaz (uloženie dotazu)"
+
 #: ckanext/sparql/templates/ckanext/sparql/query.html:59
 msgid "Show data"
-msgstr "ukázať dáta"
+msgstr "Ukázať dáta"
 
 #: ckanext/sparql/templates/ckanext/sparql/query.html:60
 msgid "Load data"
