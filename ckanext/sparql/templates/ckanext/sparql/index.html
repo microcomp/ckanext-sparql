@@ -4,9 +4,9 @@
 
 <meta name="description" content="Sparql EndPoint Interface.">
 
-  	<header class="sparql_hideme">
-		<p>{{ _('Sparql EndPoint Interface.') }}</p>
-	</header>
+    <header class="sparql_hideme">
+    <p>{{ _('Sparql EndPoint Interface.') }}</p>
+  </header>
 
 <!-- Sparql base CSS/JS and Jquery -->
 
@@ -32,10 +32,10 @@
 
 {% block primary %}
 
-  	<header class="sparql_hideme">
-		<p>{{ _('Sparql EndPoint Interface.') }}</p>
-	</header>
-	
+    <header class="sparql_hideme">
+    <p>{{ _('Sparql EndPoint Interface.') }}</p>
+  </header>
+  
     <div id="sparql_point_block">
        <noscript>
     <div class="alert alert-danger" role="alert">
@@ -47,16 +47,16 @@
         
         <div class="control-group control-full" 
         {% if h.sparql_hide_endpoint_url() %} 
-        	style="display:none; " 
+          style="display:none; " 
         {% endif %}>
-        	<label class="control-label" for="field-sparql-server">{{ _('Sparql Point Server') }}</label>
+          <label class="control-label" for="field-sparql-server">{{ _('Sparql Point Server') }}</label>
             <div class="controls">
                 <input id="field-sparql-server" type="text" name="sparql-server" value="{{h.sparql_endpoint_url()}}" placeholder="{{ _('Add the Sparql service URL. For Instance:') }} {{h.sparql_endpoint_url()}}">
             </div>
             <i class="icon-exclamation-sign"></i>&nbsp;<small>{{ _('Add the Sparql service URL. For Instance:') }} <abbr title="Sparql Point"><a target="_blank" href="http://semantic.ckan.net/sparql">http://semantic.ckan.net/sparql</a></abbr></small>
         </div>
         
-		<i class="icon-comment"></i><small><abbr title="Code Mirror"><a target="_blank" href="http://codemirror.net/">&nbsp;{{ _('Created using Code Mirror for the interface') }}</a></abbr></small>
+    <i class="icon-comment"></i><small><abbr title="Code Mirror"><a target="_blank" href="http://codemirror.net/">&nbsp;{{ _('Created using Code Mirror for the interface') }}</a></abbr></small>
 
     <!-- QUERY BUILDER TEST-->
 
@@ -66,7 +66,7 @@
 <script>
 var AVTO = [];
 function genAVTO(){
-    var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fx%0AWHERE+%7B%0A++%3Fx+%3Fp+%3Fy.%0A%7D&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
+    var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fx+WHERE+%7B%3Fx+%3Fp+%3Fo%7D&server=http%3A%2F%2Fdbpedia.org%2Fsparql&direct_link=1&type_response_query=json";
     var json_all = $.getJSON(url).complete(function(){
     var json = json_all.responseJSON
     
@@ -108,8 +108,7 @@ function addPredicate(){
       
       val= val.replace(':',"%3A");
       val = val.replace('#','%23');
-     //var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fp%0AWHERE%7B%0A%3Fs+%3Fp+%3Fo+%0AFILTER+REGEX(str(%3Fs)%2C+'%5E"+val+"%24')%0A%7D%0A&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
-     var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fp+%0AWHERE%7B%0A%3C"+val+"%3E+%3Fp+%3Fo+%0A%7D%0ALIMIT+20+%0A&server=http%3A%2F%2Fdbpedia.org%2Fsparql&direct_link=1&type_response_query=json"
+         var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fp+WHERE+%7B+%3C"+val+"%3E+%3Fp+%3Fo%7D+&server=http%3A%2F%2Fdbpedia.org%2Fsparql&direct_link=1&type_response_query=json";
       console.log(val);      
 
     var json_all = $.getJSON(url).complete(function(){
@@ -218,9 +217,9 @@ function genQuery(){
       subject = subject.replace('#','%23');
 
 
-     // var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fo+%0AWHERE%7B%0A%3Fs+%3Fp+%3Fo+%0AFILTER+REGEX(str(%3Fs)%2C+'%5E"+predicates+"%24')%0AFILTER+REGEX(str(%3Fp)%2C+'%5E"+subject+"%24')%0A%7D%0ALIMIT+20+%0A&server=http%3A%2F%2Fedem.eea.sk%3A8890%2Fsparql&direct_link=1&type_response_query=json";
 
-      var url = "http://192.168.21.27:5000/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fo%0AWHERE%7B%0A%3C"+predicates+"%3E%0A%3C"+subject+"%3E+%3Fo%0A%7D%0ALIMIT+20+%0A&server=http%3A%2F%2Fdbpedia.org%2Fsparql&direct_link=1&type_response_query=json";
+
+      var url = "/query?query=PREFIX+void%3A+%3Chttp%3A%2F%2Frdfs.org%2Fns%2Fvoid%23%3E+PREFIX+geo%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2003%2F01%2Fgeo%2Fwgs84_pos%23%3E+PREFIX+foaf%3A+%3Chttp%3A%2F%2Fxmlns.com%2Ffoaf%2F0.1%2F%3E+PREFIX+vann%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Fvann%2F%3E+PREFIX+teach%3A+%3Chttp%3A%2F%2Flinkedscience.org%2Fteach%2Fns%23%3E+PREFIX+dcterms%3A+%3Chttp%3A%2F%2Fpurl.org%2Fdc%2Fterms%2F%3E+PREFIX+rdfs%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2000%2F01%2Frdf-schema%23%3E+PREFIX+dcat%3A+%3Chttp%3A%2F%2Fwww.w3.org%2Fns%2Fdcat%23%3E+PREFIX+crsw%3A+%3Chttp%3A%2F%2Fcourseware.rkbexplorer.com%2Fontologies%2Fcourseware%23%3E+PREFIX+xsd%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2001%2FXMLSchema%23%3E+PREFIX+owl%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2002%2F07%2Fowl%23%3E+PREFIX+rdf%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F1999%2F02%2F22-rdf-syntax-ns%23%3E+PREFIX+aiiso%3A+%3Chttp%3A%2F%2Fpurl.org%2Fvocab%2Faiiso%2Fschema%23%3E+PREFIX+univcat%3A+%3Chttp%3A%2F%2Fdata.upf.edu%2Fupf%2Fontologies%2Funiversidadcatalana%23%3E+PREFIX+skos%3A+%3Chttp%3A%2F%2Fwww.w3.org%2F2004%2F02%2Fskos%2Fcore%23%3E+PREFIX+vivo%3A+%3Chttp%3A%2F%2Fvivoweb.org%2Fontology%2Fcore%23%3E+PREFIX+sbench%3A+%3Chttp%3A%2F%2Fswat.cse.lehigh.edu%2Fonto%2Funiv-bench.owl%23%3E+PREFIX+sdmx-attribute%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fattribute%23%3E+PREFIX+sdmx-concept%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fconcept%23%3E+PREFIX+sdmx-code%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fcode%23%3E+PREFIX+disco%3A+%3Chttp%3A%2F%2Frdf-vocabulary.ddialliance.org%2Fdiscovery%23%3E+PREFIX+sdmx-dimension%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fdimension%23%3E+PREFIX+sdmx-measure%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%2F2009%2Fmeasure%23%3E+PREFIX+qb%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fcube%23%3E+PREFIX+sdmx%3A+%3Chttp%3A%2F%2Fpurl.org%2Flinked-data%2Fsdmx%23%3ESELECT+%3Fo+WHERE+%7B+%3C"+predicates+"%3E+%3C"+subject+"%3E+%3Fo%7D+&server=http%3A%2F%2Fdbpedia.org%2Fsparql&direct_link=1&type_response_query=json";
 
       var json_all_object = $.getJSON(url).complete(function(){
       var json_object = json_all_object.responseJSON;
@@ -340,7 +339,7 @@ function genQuery(){
           var obj = $("#object").val();
 
           if(obj!= "")
-            query+= "?"+level+"FILTER REGEX(str(?"+level+",'"+obj+"').\n"
+            query+= "?"+level+" FILTER REGEX(str(?"+level+",'"+obj+"').\n"
           else
             query+="?"+level+" .\n"
           level += 1;
@@ -364,9 +363,9 @@ function genQuery(){
 </div>
 
     <!-- QUERY BUILDER TEST-->
-		<br><br>
+    <br><br>
 
-		<div id="test_sparql" class="sparql_hideme"></div>
+    <div id="test_sparql" class="sparql_hideme"></div>
 
 <textarea id="sparql_code" name="sparql_code"  resize="both">
 #Add here other prefixes for vocabularies that are needed
@@ -374,7 +373,7 @@ function genQuery(){
 
 SELECT * 
 WHERE {
-  	?s ?p ?o
+    ?s ?p ?o
       } 
 LIMIT 20
 </textarea>
@@ -404,12 +403,12 @@ LIMIT 20
             
         </div>
         <br>
-    	<div id="loading_image" class="span8 offset1">
-			<center><img src="{% url_for_static '/public_sparql/gif-load.gif' %}" alt="Loading"></center>
-			<br>
-			<br>
-			<br>
-		</div>
+      <div id="loading_image" class="span8 offset1">
+      <center><img src="{% url_for_static '/public_sparql/gif-load.gif' %}" alt="Loading"></center>
+      <br>
+      <br>
+      <br>
+    </div>
         
         <div style="margin-left:1em;"> <div id="sparql_results"></div></div>
     
@@ -644,7 +643,7 @@ function create_data(){
 {% block scripts %}
   {{ super() }}  
   
-	{% set current_url = request.environ.CKAN_CURRENT_URL %}
+  {% set current_url = request.environ.CKAN_CURRENT_URL %}
   
   <!-- Base JS -->
   
@@ -652,12 +651,12 @@ function create_data(){
   
   <script type="text/javascript">
   
-  	$(document).ready(function(){
-	  var sparql_query = GetURLParameter('view_code');
-	  if (sparql_query != "" && sparql_query != undefined) {
-	  	editor.setValue(decodeURIComponent((sparql_query+'').replace(/\+/g, '%20')));
-	  }
-	});
+    $(document).ready(function(){
+    var sparql_query = GetURLParameter('view_code');
+    if (sparql_query != "" && sparql_query != undefined) {
+      editor.setValue(decodeURIComponent((sparql_query+'').replace(/\+/g, '%20')));
+    }
+  });
   
   </script>
 
