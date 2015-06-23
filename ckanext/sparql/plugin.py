@@ -109,7 +109,7 @@ def sparqlQuery(data_structure):
     elif request.params.get('type_response_query') == 'query':
         return "data.upf.edu/sparql?view_code=" + request.params.get('query')
     else:
-        data=json.loads(response_query, object_pairs_hook=collections.OrderedDict)
+        data=json.loads(response_query)
         return data
 
 ### GET FUNCTIONS ###
