@@ -1,6 +1,7 @@
 {% block content %}{% set direct_link = h.check_direct_link() %}{% if direct_link == '0' %}
         <div>
-            {% set results = h.sparqlQuery('') %}
+            {% set results = h.sparqlQuery('json') %}
+
             <!--table class="table table-bordered sparql_table">
             <caption>SPARQL Results</caption>
             <thead>
@@ -56,7 +57,78 @@
             </tbody>
             </table!-->
 
-            <button onclick="create_data()" id="showdata" class="mybutton" style="margin-left auto; margin-right: auto;">{{_("Show data")}}</button>
+            <script type="text/javascript">
+              function escapeRegExp(string) {
+                  return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+              }
+              function replaceAll(string, find, replace) {
+                return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+              }
+              function create_data(){
+               
+                var x;
+                
+                var text = "{{results}}";
+
+                text = replaceAll(text,"u&#39;",'"')
+
+                text = replaceAll(text,"&#39;",'"')
+                text = replaceAll(text,"True",'"True"')
+                text = replaceAll(text,"False",'"False"')
+                console.log(text);
+                var json = JSON.parse(text);
+                 x = json
+                
+                function toObject(arr) {
+                  var rv = {};
+                  for (var i = 0; i < arr.length; ++i)
+                    rv[i] = arr[i];
+                  return rv;
+                }
+
+                var vars = [];
+                for(var i = 0; i < x.head.vars.length; i++){
+                  vars.push({id:String(x.head.vars[i]), type: "text"});
+                }
+                var records = [];
+
+                for(var i = 0;  i < x.results.bindings.length; i++){
+                  var dict = {};
+                  for(var j = 0; j < vars.length; j++){
+                    
+                    dict[String("_"+vars[j]["id"])]= x.results.bindings[i][vars[j]["id"]]["value"];
+                  }
+                  records.push(dict);
+                }
+                for(var i = 0; i <vars.length; i++){
+                    vars[i].id = "_"+vars[i].id
+                }
+                data_from_json = {records:records, fields:vars};
+                if($(".recline-data-explorer").length > 0){
+                  $(".recline-data-explorer")[0].remove();
+                }
+
+                $("#field-link-sparql-server-query_json").on('change',function(){$(".recline-data-explorer")[0].remove;})
+                var dataset = createDemoDataset();
+                window.multiview = createMultiView(dataset);
+
+                var url = $("#field-link-sparql-server-query_json").val();
+                var json = $.getJSON(url);
+                json = json.responseJSON;
+              
+             
+                  var rem = document.getElementsByClassName('slick-column-name')
+                  for(var i = 0; i < rem.length; i++){
+                    rem[i].innerHTML = rem[i].innerHTML.substring(1, rem[i].innerHTML.length)
+                  $("#showdata").hide();
+                  $("#updatedata").show();
+              }
+             
+
+              }
+
+              </script>
+            <button onclick='create_data()' id="showdata" class="mybutton" style="margin-left auto; margin-right: auto;">{{_("Show data")}}</button>
             <!--button onclick="create_data()" id="updatedata" class="mybutton" style="margin-left auto; margin-right: auto;"><i class="fa fa-refresh"></i> {{_("Load data")}}</button!-->
         </div>
 {% elif direct_link == '1' %}{% set results_python_data_structure = h.sparqlQuery('') %}{{ results_python_data_structure | safe }}{% else %}{{ direct_link }}{% endif %}{% endblock %}
