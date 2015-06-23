@@ -438,7 +438,7 @@ LIMIT 20
 create_data()
 -->
 
-<script type="text/javascript">
+<!--script type="text/javascript">
 function create_data(){
   var url = $("#field-link-sparql-server-query_json").val();
 
@@ -489,6 +489,7 @@ function create_data(){
   if($(".recline-data-explorer").length > 0){
     $(".recline-data-explorer")[0].remove();
   }
+
   $("#field-link-sparql-server-query_json").on('change',function(){$(".recline-data-explorer")[0].remove;})
   var dataset = createDemoDataset();
   window.multiview = createMultiView(dataset);
@@ -508,7 +509,7 @@ function create_data(){
 
 }
 
-</script>
+</script!-->
 
 <style type="text/css">
 
