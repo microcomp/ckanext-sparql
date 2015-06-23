@@ -1,6 +1,6 @@
 from logging import getLogger
 import ckan.plugins as p
-from pylons import request, response, config
+from pylons import request, response, config, session
 #from SPARQLWrapper import SPARQLWrapper, JSON
 import ckan.plugins.toolkit as tk
 import urllib, json
@@ -28,7 +28,10 @@ def sparqlQuery(data_structure):
     
     c = p.toolkit.c
     c.direct_link = request.params.get('direct_link')
-    #log.info('user: %s', c.get('user',''))
+    log.info('sparql controller')
+    log.info('user: %s', c.user)
+    actor_id = session.get('ckanext-cas-actorid', None)
+    log.info('actor: %s', actor_id)
     if request.params.get('type_response_query') == 'json': 
         format="application/json"
     elif request.params.get('type_response_query') == 'turtle':
@@ -54,7 +57,13 @@ def sparqlQuery(data_structure):
     }
     
     querypart = urllib.urlencode(params_query)
-    #tk.get_action('auditlog_send')(data_dict={'event_name' : 'sparql_app_started','debug_level' : 2,'error_code' : 0,'object_reference' : 'sparql query','description' : params_query['query']})
+    tk.get_action('auditlog_send')(data_dict={'event_name' : 'sparql_app_started',
+                                              'debug_level' : 2,
+                                              'error_code' : 0,
+                                              'subject' : c.user,
+                                              'authorized_user' : actor_id,
+                                              'object_reference' : 'sparql query',
+                                              'description' : params_query['query']})
     temp_result = urllib.urlopen(request.params.get('server'),querypart)
     response_query = temp_result.read()
     
