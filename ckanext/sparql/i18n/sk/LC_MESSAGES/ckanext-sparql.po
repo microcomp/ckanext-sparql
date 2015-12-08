@@ -55,7 +55,7 @@ msgstr "Vyčistiť formulár"
 
 #: ckanext/sparql/templates/ckanext/sparql/index.html:300
 msgid "Subject"
-msgstr "Predmet"
+msgstr "Subject"
 
 #: ckanext/sparql/templates/ckanext/sparql/index.html:301
 msgid "Predicates"
