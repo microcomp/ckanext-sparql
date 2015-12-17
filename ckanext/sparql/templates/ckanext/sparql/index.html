@@ -339,7 +339,7 @@ function genQuery(){
           var obj = $("#object").val();
 
           if(obj!= "")
-            query+= "?"+level+" FILTER REGEX(str(?"+level+",'"+obj+"').\n"
+            query+= "?"+level+" FILTER REGEX(str(?"+level+"),'"+obj+"').\n"
           else
             query+="?"+level+" .\n"
           level += 1;
