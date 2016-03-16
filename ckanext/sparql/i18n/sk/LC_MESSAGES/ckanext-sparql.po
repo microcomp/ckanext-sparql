@@ -117,3 +117,7 @@ msgstr "Načítavanie dát"
 #: ckanext/sparql/templates/ckanext/sparql/index.html:61
 msgid "Actually there is no data in triple store"
 msgstr "Aktuálne nemáme žiadne dáta v triple store"
+
+#: ckanext/sparql/templates/ckanext/sparql/index.html:77
+msgid "Sparql query"
+msgstr "Sparql dotaz"
